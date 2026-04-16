@@ -13,8 +13,15 @@ padding : 10px;
 </style>
 </head>
 <body>
+<b style = "color:blue; text-align:center;">
+<%
+ if(request.getAttribute("msg")!=null){
+	 out.println(request.getAttribute("msg"));
+ }
+%>
 
-<form method="post" action="">
+</b>
+<form method="post" action="StudentController">
 <table>
 <tr>
 <td>First Name : </td>
@@ -34,7 +41,7 @@ padding : 10px;
 </tr>
 
 <td>Address : </td>
-<td> <textarea rows="5" cols="22" name="address"></textarea></td>
+ <td> <textarea rows="5" cols="22" name="address"></textarea></td>
 </tr>
 
 <td>Gender :  </td>
@@ -50,6 +57,7 @@ padding : 10px;
 
 </table>
 </form>
+<a href="show.jsp" >Show All Student</a>
 
 </body>
 </html>
