@@ -25,6 +25,8 @@ padding : 10px;
 <th>MOBILE</th>
 <th>ADDRESS</th> 
 <th>GENDER</th>
+<th>EDIT</th>
+<th>DELETE</th>
 </tr>
 <%
   List<Student> list = StudentDao.getAllStudent();
@@ -32,22 +34,40 @@ padding : 10px;
 %>	
 <tr>
 <td><%=s.getId()%></td>
+
 <td><%=s.getFname() %></td>
 <td><%=s.getLname() %></td>
 <td><%=s.getEmail() %></td>
 <td><%=s.getMobile() %></td>
 <td><%=s.getAddress() %></td>
 <td><%=s.getGender() %></td>
+ <td>
+ <form action="StudentController" method="post" name="edit">
+ 
+ <input type="hidden" name="id" value="<%=s.getId()%>">
+ <input type="submit" name="action" value="EDIT" class="btn btn-primary">
+ 
+ </form>
+ </td>
+ <td>
+ <form action="StudentController" method="post" name="delete">
+ 
+ <input type="hidden" name="id" value="<%=s.getId()%>">
+ <input type="submit" name="action" value="delete" class="btn btn-danger">
+ 
+ </form>
+ </td>
 </tr>
 
 <% 
   }
 
 %>
-<tr>
-</tr>
 
+ 
 </table>
+
+<a href="index.jsp">Add New Student</a>
 
 
 

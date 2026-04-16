@@ -41,7 +41,42 @@ public class StudentController extends HttpServlet {
 			
 		}
 		
+		else if(action.equalsIgnoreCase("edit")) {
+			
+			int id = Integer.parseInt(request.getParameter("id"));   //id fetch
+			Student s=StudentDao.getStudent(id);					//student ka object laye id se db me se
+			request.setAttribute("s", s);
+			request.getRequestDispatcher("update.jsp").forward(request, response);
+			
+			
+			
+		}
+		
+		else if(action.equalsIgnoreCase("update")) {
+			Student s = new Student();
+			s.setId(Integer.parseInt(request.getParameter("id")));
+			s.setFname(request.getParameter("fname"));
+			s.setLname(request.getParameter("lname"));
+			s.setEmail(request.getParameter("email"));
+			s.setMobile(Long.parseLong(request.getParameter("mobile")));
+			s.setAddress(request.getParameter("address"));
+			s.setGender(request.getParameter("gender"));
+			StudentDao.updateStudent(s);
+  //		response.sendRedirect("index.jsp");
+			
+			request.setAttribute("msg", "Data Updated successfully");
+			request.getRequestDispatcher("show.jsp").forward(request, response);
+			
 		
 	}
+		
+else if(action.equalsIgnoreCase("delete")) {
+			
+			int id = Integer.parseInt(request.getParameter("id"));   //id fetch
+		    StudentDao.deleteStudent(id);					//student ka object laye id se db me se
+			response.sendRedirect("show.jsp");
+			
 
 }
+}
+	}

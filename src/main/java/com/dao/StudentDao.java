@@ -44,11 +44,11 @@ public class StudentDao {
 				Student s = new Student();
 				s.setId(rs.getInt("id"));
 				s.setFname(rs.getString("fname"));
-				s.setFname(rs.getString("lname"));
-				s.setFname(rs.getString("email"));
-				s.setFname(rs.getString("mobile"));
-				s.setFname(rs.getString("address"));
-				s.setFname(rs.getString("gender"));
+				s.setLname(rs.getString("lname"));
+				s.setEmail(rs.getString("email"));
+				s.setMobile(rs.getLong("mobile"));
+				s.setAddress(rs.getString("address"));
+				s.setGender(rs.getString("gender"));
 				list.add(s);
 			}
 			
@@ -61,5 +61,73 @@ public class StudentDao {
 		
 		return  list;
 	}
+	
+	
+public static Student getStudent(int id){
+		
+		Student s = null;
+		try {
+			
+			Connection conn = StudentUtil.createConnection();
+			String sql="select * from stu where id=?";
+			PreparedStatement pst =conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()) {
+				s=new Student();
+				s.setId(rs.getInt("id"));
+				s.setFname(rs.getString("fname"));
+				s.setLname(rs.getString("lname"));
+				s.setEmail(rs.getString("email"));
+				s.setMobile(rs.getLong("mobile"));
+				s.setAddress(rs.getString("address"));
+				s.setGender(rs.getString("gender"));
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return s;
+	}
+
+public static void updateStudent(Student s) {
+	try {
+		Connection conn = StudentUtil.createConnection();
+		String sql = "update stu set fname=?,lname=?,email=?,mobile=?,address=?,gender=? where id=?";
+		PreparedStatement pst = conn.prepareStatement(sql);
+		pst.setString(1, s.getFname());
+		pst.setString(2, s.getLname());
+		pst.setString(3, s.getEmail());
+		pst.setLong(4, s.getMobile());
+		pst.setString(5, s.getAddress());
+		pst.setString(6, s.getGender());
+		pst.setInt(7, s.getId());
+		
+		pst.executeUpdate();
+		 
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+
+public static void deleteStudent(int id) {
+	try {
+		Connection conn = StudentUtil.createConnection();
+		String sql = "delete  from stu where id=?";
+		PreparedStatement pst = conn.prepareStatement(sql);
+		pst.setInt(1, id);
+		pst.executeUpdate();
+		 
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
 
 }
